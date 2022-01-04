@@ -1,1061 +1,921 @@
 {
-    "import": {
-        "prefix": "imp",
-        "body": "import ${2:moduleName} from '${1:module}'$0"
-    },
-    "importNoModuleName": {
-        "prefix": "imn",
-        "body": "import '${1:module}'$0"
-    },
-    "importDestructing": {
-        "prefix": "imd",
-        "body": "import { $2 } from '${1:module}'$0"
-    },
-    "importEverything": {
-        "prefix": "ime",
-        "body": "import * as ${2:alias} from '${1:module}'$0"
-    },
-    "importAs": {
-        "prefix": "ima",
-        "body": "import { ${2:originalName} as ${3:alias} } from '${1:module}'$0"
-    },
-    "exportDefault": {
-        "prefix": "exp",
-        "body": "export default $1$0"
-    },
-    "exportDestructing": {
-        "prefix": "exd",
-        "body": "export { $2 } from '${1:module}'$0"
-    },
-    "exportAs": {
-        "prefix": "exa",
-        "body": "export { ${2:originalName} as ${3:alias} } from '${1:module}'$0"
-    },
-    "exportNamedFunction": {
-        "prefix": "enf",
-        "body": [
-            "export const ${1:functionName} = (${2:params}) => {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Export named function in ES7 syntax"
-    },
-    "exportDefaultFunction": {
-        "prefix": "edf",
-        "body": [
-            "export default (${1:params}) => {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Export default function in ES7 syntax"
-    },
-    "forEach": {
-        "prefix": "fre",
-        "body": [
-            "${1:array}.forEach(${2:currentItem} => {",
-            "\t${0}",
-            "})",
-            ""
-        ],
-        "description": "Creates a forEach statement in ES7 syntax"
-    },
-    "forOf": {
-        "prefix": "fof",
-        "body": [
-            "for(let ${1:item} of ${2:object}) {",
-            "\t${0}",
-            "}",
-            ""
-        ],
-        "description": "Iterating over property names of iterable objects"
-    },
-    "forIn": {
-        "prefix": "fin",
-        "body": [
-            "for(let ${1:item} in ${2:object}) {",
-            "\t${0}",
-            "}",
-            ""
-        ],
-        "description": "Iterating over property values of iterable objects"
-    },
-    "anonymousFunction": {
-        "prefix": "anfn",
-        "body": [
-            "(${1:params}) => {",
-            "\t${2}",
-            "}",
-            ""
-        ],
-        "description": "Creates an anonymous function in ES7 syntax"
-    },
-    "namedFunction": {
-        "prefix": "nfn",
-        "body": [
-            "const ${1:name} = (${2:params}) => {",
-            "\t${3}",
-            "}",
-            ""
-        ],
-        "description": "Creates a named function in ES7 syntax"
-    },
-    "destructingObject": {
-        "prefix": "dob",
-        "body": "const {${1:propertyName}} = ${2:objectToDestruct}",
-        "description": "Creates and assigns a local variable using object destructing"
-    },
-    "destructingArray": {
-        "prefix": "dar",
-        "body": "const [${1:propertyName}] = ${2:arrayToDestruct}",
-        "description": "Creates and assigns a local variable using array destructing"
-    },
-    "setInterval": {
-        "prefix": "sti",
-        "body": [
-            "setInterval(() => {",
-            "\t${2}",
-            "}, ${0:intervalInms})",
-            ""
-        ],
-        "description": "Executes the given function at specified intervals in ES7 syntax"
-    },
-    "setTimeOut": {
-        "prefix": "sto",
-        "body": [
-            "setTimeout(() => {",
-            "\t${2}",
-            "}, ${1:delayInms})",
-            ""
-        ],
-        "description": "Executes the given function after the specified delay in ES7 syntax"
-    },
-    "consoleAssert": {
-        "prefix": "cas",
-        "body": "console.assert(${1:expression}, ${2:object})",
-        "description": "If the specified expression is false, the message is written to the console along with a stack trace"
-    },
-    "consoleClear": {
-        "prefix": "ccl",
-        "body": "console.clear()",
-        "description": "Clears the console"
-    },
-    "consoleCount": {
-        "prefix": "cco",
-        "body": "console.count(${1:label})",
-        "description": "Writes the the number of times that count() has been invoked at the same line and with the same label"
-    },
-    "consoleDir": {
-        "prefix": "cdi",
-        "body": "console.dir(${1:object})",
-        "description": "Prints a JavaScript representation of the specified object"
-    },
-    "consoleError": {
-        "prefix": "cer",
-        "body": "console.error(${1:object})",
-        "description": "Displays a message in the console and also includes a stack trace from where the method was called"
-    },
-    "consoleGroup": {
-        "prefix": "cgr",
-        "body": "console.group(\"${1:label}\")",
-        "description": "Groups and indents all following output by an additional level, until console.groupEnd() is called."
-    },
-    "consoleGroupEnd": {
-        "prefix": "cge",
-        "body": "console.groupEnd()",
-        "description": "Closes out the corresponding console.group()."
-    },
-    "consoleLog": {
-        "prefix": "clg",
-        "body": "console.log(${1:object})",
-        "description": "Displays a message in the console"
-    },
-    "consoleTrace": {
-        "prefix": "ctr",
-        "body": "console.trace(${1:object})",
-        "description": "Prints a stack trace from the point where the method was called"
-    },
-    "consoleLogObject": {
-        "prefix": "clo",
-        "body": "console.log('${1:object}', ${1:object})",
-        "description": "Logs property with name."
-    },
-    "consoleTime": {
-        "prefix": "ctm",
-        "body": "console.time('${1:object}')",
-        "description": "Console time wrapper"
-    },
-    "consoleTimeEnd": {
-        "prefix": "cte",
-        "body": "console.timeEnd('${1:object}')",
-        "description": "Console time end wrapper"
-    },
-    "consoleWarn": {
-        "prefix": "cwa",
-        "body": "console.warn(${1:object})",
-        "description": "Displays a message in the console but also displays a yellow warning icon along with the logged message"
-    },
-    "consoleInfo": {
-        "prefix": "cin",
-        "body": "console.info(${1:object})",
-        "description": "Displays a message in the console but also displays a blue information icon along with the logged message"
-    },
-    "import React": {
-        "prefix": "imr",
-        "body": [
-            "import React from 'react'",
-            ""
-        ]
-    },
-    "import React, { Component }": {
-        "prefix": "imrc",
-        "body": [
-            "import React, { Component } from 'react'",
-            ""
-        ]
-    },
-    "import React, { PureComponent }": {
-        "prefix": "imrpc",
-        "body": [
-            "import React, { PureComponent } from 'react'",
-            ""
-        ]
-    },
-    "import React, { memo }": {
-        "prefix": "imrm",
-        "body": [
-            "import React, { memo } from 'react'",
-            ""
-        ]
-    },
-    "Create style": {
-        "prefix": "rns",
-        "body": [
-            "const styles = ${1:StyleSheet}.create({",
-            "${2}",
-            "})"
-        ]
-    },
-    "Export style": {
-        "prefix": "rnse",
-        "body": [
-            "export const styles = ${1:StyleSheet}.create({",
-            "${2}",
-            "})"
-        ]
-    },
-    "React, Hook, memo": {
-        "prefix": "rnhm",
-        "body": [
-            "import React, { memo } from 'react'",
-            "import { View, Text } from 'react-native'",
-            "",
-            "const ${1:${TM_FILENAME_BASE}}Component = () => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text></Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
-        ]
-    },
-    "React, Hook, memo , style ": {
-        "prefix": "rnhms",
-        "body": [
-            "import React, { memo } from 'react'",
-            "import { View, Text, StyleSheet } from 'react-native'",
-            "",
-            "const styles = StyleSheet.create({",
-            "",
-            "});",
-            "",
-            "const ${1:${TM_FILENAME_BASE}}Component = () => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text></Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
-        ]
-    },
-    "React, Typescript, Hook, memo, interface  ": {
-        "prefix": "rthm",
-        "body": [
-            "import React, { memo } from 'react'",
-            "import { View, Text } from 'react-native'",
-            "",
-            "interface ${1:${TM_FILENAME_BASE}}Props {",
-            "",
-            "}",
-            "",
-            "const ${1:${TM_FILENAME_BASE}}Component = ({}:${1:${TM_FILENAME_BASE}}Props) => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text></Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
-        ]
-    },
-    "React, Typescript, Hook, memo, type, navigation  ": {
-        "prefix": "rtnhm",
-        "body": [
-            "import React, { memo } from 'react'",
-            "import { View, Text } from 'react-native'",
-            "import {  StackScreenProps } from '@react-navigation/stack'",
-            "",
-            "type ${1:${TM_FILENAME_BASE}}Props = StackScreenProps<${3},${4}>",
-            "",
-            "const ${1:${TM_FILENAME_BASE}}Component = ({ navigation, route }:${1:${TM_FILENAME_BASE}}Props) => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text></Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
-        ]
-    },
-    "React,Typescript, Hook, memo, interface, style  ": {
-        "prefix": "rthms",
-        "body": [
-            "import React, { memo } from 'react'",
-            "import { View, Text, StyleSheet } from 'react-native'",
-            "",
-            "const styles = StyleSheet.create({",
-            "",
-            "});",
-            "",
-            "interface ${1:${TM_FILENAME_BASE}}Props {",
-            "",
-            "}",
-            "",
-            "const ${1:${TM_FILENAME_BASE}}Component = ({}:${1:${TM_FILENAME_BASE}}Props) => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text></Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
-        ]
-    },
-    "Redux Constant": {
-        "prefix": "rxconst",
-        "body": [
-            "export const ${1:CONSTANT_NAME} = '${1:CONSTANT_NAME}'"
-        ]
-    },
-    "Redux Action": {
-        "prefix": "rxaction",
-        "body": [
-            "export const ${1:actionName} = (payload) => ({",
-            " type: ${2:type},",
-            " payload",
-            "})"
-        ]
-    },
-    "Redux Reducer": {
-        "prefix": "rxreducer",
-        "body": [
-            "const initialState = {",
-            "",
-            "}",
-            "",
-            "export default (state = initialState, { type, payload }) => {",
-            "\tswitch (type) {",
-            "",
-            "\tcase ${1:typeName}:",
-            "\t\treturn { ...state, ...payload }",
-            "",
-            "\tdefault:",
-            "\t\treturn state",
-            "\t}",
-            "}"
-        ]
-    },
-    "Redux Reducer Immer": {
-        "prefix": "imreducer",
-        "body": [
-            "import { produce } from 'immer'",
-            "import * as Action from '${1}';",
-            "",
-            "const initialState = {",
-            "",
-            "};",
-            "export default",
-            "\tproduce((draftState, { type, payload }) => {",
-            "\t\tswitch (type) {",
-            "\t\t\tdefault:",
-            "\t\t\t\tbreak;",
-            "\t\t}",
-            "\t}, initialState)"
-        ]
-    },
-    "Typescript Redux Reducer": {
-        "prefix": "rxtreducer",
-        "body": [
-            "import * as Action from '${1}';",
-            "",
-            "interface ${2:${TM_FILENAME_BASE}}State {",
-            "",
-            "}",
-            "",
-            "const initialState: ${2:${TM_FILENAME_BASE}}State = {",
-            "",
-            "}",
-            "",
-            "interface ActionProps {",
-            "\ttype: keyof typeof Action;",
-            "\tpayload: any;",
-            "}",
-            "export default (state = initialState, { type, payload }: ActionProps): ${2:${TM_FILENAME_BASE}}State => {",
-            "\tswitch (type) {",
-            "",
-            "\t\tcase ${3:typeName}:",
-            "\t\t\treturn { ...state, ...payload }",
-            "",
-            "\t\tdefault:",
-            "\t\t\treturn state",
-            "\t}",
-            "}"
-        ]
-    },
-    "Typescript Redux Reducer Immer": {
-        "prefix": "timreducer",
-        "body": [
-            "import { produce } from 'immer'",
-            "import * as Action from '${1}';",
-            "",
-            "export interface ${2:${TM_FILENAME_BASE}}State {",
-            "",
-            "}",
-            "const initialState: ${2:${TM_FILENAME_BASE}}State = {",
-            "",
-            "};",
-            "interface ActionProps {",
-            "\ttype: keyof typeof Action;",
-            "\tpayload: any;",
-            "}",
-            "export default",
-            "\tproduce((draftState: ${2:${TM_FILENAME_BASE}}State, { type, payload }: ActionProps) => {",
-            "\t\tswitch (type) {",
-            "\t\t\tdefault:",
-            "\t\t\t\tbreak;",
-            "\t\t}",
-            "\t}, initialState)"
-        ]
-    },
-    "Typescript interface": {
-        "prefix": "rni",
-        "body": [
-            "interface ${1:${TM_FILENAME_BASE}} {",
-            "",
-            "}"
-        ]
-    },
-    "export Typescript interface": {
-        "prefix": "exi",
-        "body": [
-            "export interface ${1:${TM_FILENAME_BASE}} {",
-            "",
-            "}"
-        ]
-    },
-    "redux useSelector": {
-        "prefix": "useSelector",
-        "body": [
-            "const {${2:state}} = useSelector(x => x.${1:state});"
-        ]
-    },
-    "Typescript Redux useSelector": {
-        "prefix": "tsuseSelector",
-        "body": [
-            "const {${3:state}} = useSelector<${1:any}>(x => x.${2:state});"
-        ]
-    },
-    "redux useDispatch": {
-        "prefix": "useDispatch",
-        "body": [
-            "const dispatch = useDispatch();"
-        ]
-    },
-    "useImperativeHandle": {
-        "prefix": "useImperativeHandle",
-        "body": [
-            "useImperativeHandle(",
-            "\tref,",
-            "\t() => {",
-            "\t\t${2:handler}",
-            "\t},",
-            "\t[${1:deps}],",
-            ")"
-        ]
-    },
-    "React hook state": {
-        "prefix": "useState",
-        "body": [
-            "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialState})"
-        ]
-    },
-    "Typescript React hook state": {
-        "prefix": "tuseState",
-        "body": [
-            "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState<${2:any}>(${3:initialState})"
-        ]
-    },
-    "useEffect": {
-        "prefix": "useEffect",
-        "body": [
-            "useEffect(() => {",
-            "\t${2:effect}",
-            "\treturn () => {",
-            "\t\t${3:cleanup}",
-            "\t}",
-            "}, [${1:deps}])"
-        ]
-    },
-    "useContext": {
-        "prefix": "useContext",
-        "body": [
-            "const ${1:context} = useContext(${2:contextValue})"
-        ]
-    },
-    "useReducer": {
-        "prefix": "useReducer",
-        "body": [
-            "const [state, dispatch] = useReducer(${1:reducer}, ${2:initialState}, ${3:init})"
-        ]
-    },
-    "useCallback": {
-        "prefix": "useCallback",
-        "body": [
-            "const ${1:callback} = useCallback(() => {",
-            "\t$3",
-            "}, [${2:deps}]);"
-        ]
-    },
-    "useMemo": {
-        "prefix": "useMemo",
-        "body": [
-            "const ${1:memo} = useMemo(() => ${2:function}, [${3:deps}])"
-        ]
-    },
-    "tuseMemo": {
-        "prefix": "useMemo",
-        "body": [
-            "const ${2:memo} = useMemo<${1:any}>(() => ${3:function}, [${4:deps}])"
-        ]
-    },
-    "useRef": {
-        "prefix": "useRef",
-        "body": [
-            "const ${1:ref} = useRef(${2:initialValue})"
-        ]
-    },
-    "Typescript useRef": {
-        "prefix": "tuseRef",
-        "body": [
-            "const ${2:ref} = useRef<${1:any}>(${3:initialValue})"
-        ]
-    },
-    "useLayoutEffect": {
-        "prefix": "useLayoutEffect",
-        "body": [
-            "useLayoutEffect(() => {",
-            "\t${2:effect}",
-            "\treturn () => {",
-            "\t\t${2:cleanup}",
-            "\t};",
-            "}, [${1:input}])"
-        ]
-    },
-    "useDebugValue": {
-        "prefix": "useDebugValue",
-        "body": [
-            "useDebugValue(${1:value})"
-        ]
-    },
-    "Redux saga function": {
-        "prefix": "rxsaga",
-        "body": [
-            "export function* ${1:functionName}() {",
-            "${2}",
-            "}"
-        ]
-    },
-    "describeBlock": {
-        "prefix": "desc",
-        "body": [
-            "describe('$1', () => {",
-            "\t$0",
-            "})",
-            ""
-        ],
-        "description": "Testing `describe` block"
-    },
-    "testBlock": {
-        "prefix": "test",
-        "body": [
-            "test('should $1', () => {",
-            "\t$0",
-            "})",
-            ""
-        ],
-        "description": "Testing `test` block"
-    },
-    "testAsyncBlock": {
-        "prefix": "testa",
-        "body": [
-            "test('should $1', async () => {",
-            "\t$0",
-            "})",
-            ""
-        ],
-        "description": "Testing `asynchronous test` block"
-    },
-    "itBlock": {
-        "prefix": "tit",
-        "body": [
-            "it('should $1', () => {",
-            "\t$0",
-            "})",
-            ""
-        ],
-        "description": "Testing `it` block"
-    },
-    "itAsyncBlock": {
-        "prefix": "tita",
-        "body": [
-            "it('should $1', async () => {",
-            "\t$0",
-            "})",
-            ""
-        ],
-        "description": "Testing asynchronous `it` block"
-    },
-    "setupReactNativeTest": {
-        "prefix": "sntest",
-        "body": [
-            "import 'react-native'",
-            "import React from 'react'",
-            "import renderer from 'react-test-renderer'",
-            "",
-            "import ${1:${TM_FILENAME_BASE}} from '../${1:${TM_FILENAME_BASE}}'",
-            "",
-            "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
-            "\tconst defaultProps = {}",
-            "\tconst wrapper = renderer.create(<${1:${TM_FILENAME_BASE}} {...defaultProps} />)",
-            "",
-            "\ttest('render', () => {",
-            "\t\texpect(wrapper).toMatchSnapshot()",
-            "\t})",
-            "})",
-            ""
-        ]
-    },
-    "setupReactComponentTestWithRedux": {
-        "prefix": "srtest",
-        "body": [
-            "import React from 'react'",
-            "import renderer from 'react-test-renderer'",
-            "import { Provider } from 'react-redux'",
-            "",
-            "import store from 'src/store'",
-            "import { ${1:${TM_FILENAME_BASE}} } from '../${1:${TM_FILENAME_BASE}}'",
-            "",
-            "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
-            "\tconst defaultProps = {}",
-            "\tconst wrapper = renderer.create(",
-            "\t\t<Provider store={store}>",
-            "\t\t <${1:${TM_FILENAME_BASE}} {...defaultProps} />",
-            "\t\t</Provider>,",
-            "\t)",
-            "",
-            "\ttest('render', () => {",
-            "\t\texpect(wrapper).toMatchSnapshot()",
-            "\t})",
-            "})",
-            ""
-        ],
-        "description": "Create test component"
-    },
-    "setupReactNativeTestWithRedux": {
-        "prefix": "snrtest",
-        "body": [
-            "import 'react-native'",
-            "import React from 'react'",
-            "import renderer from 'react-test-renderer'",
-            "import { Provider } from 'react-redux'",
-            "",
-            "import store from 'src/store'",
-            "import ${1:${TM_FILENAME_BASE}} from '../${1:${TM_FILENAME_BASE}}'",
-            "",
-            "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
-            "\tconst defaultProps = {}",
-            "\tconst wrapper = renderer.create(",
-            "\t\t<Provider store={store}>",
-            "\t\t\t<${1:${TM_FILENAME_BASE}} {...defaultProps} />",
-            "\t\t</Provider>,",
-            "\t)",
-            "",
-            "\ttest('render', () => {",
-            "\t\texpect(wrapper).toMatchSnapshot()",
-            "\t})",
-            "})",
-            ""
-        ]
-    },
-    "reactNativeComponent": {
-        "prefix": "rnc",
-        "body": [
-            "import React, { Component } from 'react'",
-            "import { Text, View } from 'react-native'",
-            "",
-            "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            ""
-        ]
-    },
-    "reactNativeComponentWithStyles": {
-        "prefix": "rncs",
-        "body": [
-            "import React, { Component } from 'react'",
-            "import { Text, StyleSheet, View } from 'react-native'",
-            "",
-            "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            "",
-            "const styles = StyleSheet.create({})",
-            ""
-        ]
-    },
-    "reactNativeComponentExport": {
-        "prefix": "rnce",
-        "body": [
-            "import React, { Component } from 'react'",
-            "import { Text, View } from 'react-native'",
-            "",
-            "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            "",
-            "export default ${1:${TM_FILENAME_BASE}}",
-            ""
-        ]
-    },
-    "reactNativePureComponent": {
-        "prefix": "rnpc",
-        "body": [
-            "import React, { PureComponent } from 'react'",
-            "import { Text, View } from 'react-native'",
-            "",
-            "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            ""
-        ]
-    },
-    "reactNativePureComponentExport": {
-        "prefix": "rnpce",
-        "body": [
-            "import React, { PureComponent } from 'react'",
-            "import { Text, View } from 'react-native'",
-            "",
-            "export class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            "",
-            "export default ${1:${TM_FILENAME_BASE}}",
-            ""
-        ]
-    },
-    "reactNativeClassComponentRedux": {
-        "prefix": "rncredux",
-        "body": [
-            "import React, { Component } from 'react'",
-            "import { View, Text } from 'react-native'",
-            "import PropTypes from 'prop-types'",
-            "import { connect } from 'react-redux'",
-            "",
-            "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-            "\tstatic propTypes = {",
-            "\t\t${2:prop}: ${3:PropTypes}",
-            "\t}",
-            "",
-            "\trender() {",
-            "\t\treturn (",
-            "\t\t\t<View>",
-            "\t\t\t\t<Text> ${2:textInComponent} </Text>",
-            "\t\t\t</View>",
-            "\t\t)",
-            "\t}",
-            "}",
-            "",
-            "const mapStateToProps = (state) => ({",
-            "\t",
-            "})",
-            "",
-            "const mapDispatchToProps = {",
-            "\t",
-            "}",
-            "",
-            "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})",
-            ""
-        ],
-        "description": "Creates a React Native component class with PropTypes with connected redux and ES7 module system"
-    },
-    "reactNativeFunctionalExportComponent": {
-        "prefix": "rnfe",
-        "body": [
-            "import React from 'react'",
-            "import { View, Text } from 'react-native'",
-            "",
-            "const ${1:${TM_FILENAME_BASE}} = () => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text>$0</Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export default ${1:${TM_FILENAME_BASE}}",
-            ""
-        ]
-    },
-    "reactNativeFunctionalExportComponentWithStyles": {
-        "prefix": "rnfes",
-        "body": [
-            "import React from 'react'",
-            "import { StyleSheet, Text, View } from 'react-native'",
-            "",
-            "const ${1:${TM_FILENAME_BASE}} = () => {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text>$0</Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "export default ${1:${TM_FILENAME_BASE}}",
-            "",
-            "const styles = StyleSheet.create({})",
-            ""
-        ]
-    },
-    "reactNativeFunctionalComponent": {
-        "prefix": "rnf",
-        "body": [
-            "import React from 'react'",
-            "import { View, Text } from 'react-native'",
-            "",
-            "export default function ${1:${TM_FILENAME_BASE}}() {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text>$0</Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            ""
-        ]
-    },
-    "reactNativeFunctionalComponentWithStyles": {
-        "prefix": "rnfs",
-        "body": [
-            "import React from 'react'",
-            "import { StyleSheet, Text, View } from 'react-native'",
-            "",
-            "export default function ${1:${TM_FILENAME_BASE}}() {",
-            "\treturn (",
-            "\t\t<View>",
-            "\t\t\t<Text>$0</Text>",
-            "\t\t</View>",
-            "\t)",
-            "}",
-            "",
-            "const styles = StyleSheet.create({})",
-            ""
-        ]
-    },
-    "reactNativeImport": {
-        "prefix": "imrn",
-        "body": "import { ${1:moduleName} } from 'react-native'"
-    },
-    "componentSetStateObject": {
-        "prefix": "sst",
-        "body": "this.setState({$0})",
-        "description": "Performs a shallow merge of nextState into current state"
-    },
-    "componentSetStateFunc": {
-        "prefix": "ssf",
-        "body": [
-            "this.setState((state, props) => { return { $0 }})",
-            ""
-        ],
-        "description": "Performs a shallow merge of nextState into current state"
-    },
-    "componentProps": {
-        "prefix": "props",
-        "body": "this.props.$0",
-        "description": "Access component's props"
-    },
-    "componentState": {
-        "prefix": "state",
-        "body": "this.state.$0"
-    },
-    "componentWillMount": {
-        "prefix": "cwm",
-        "body": [
-            "componentWillMount() {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "DEPRECATED!!!. Invoked once, both on the client and server, immediately before the initial rendering occurs"
-    },
-    "componentDidMount": {
-        "prefix": "cdm",
-        "body": [
-            "componentDidMount() {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Invoked once, only on the client (not on the server), immediately after the initial rendering occurs."
-    },
-    "componentWillReceiveProps": {
-        "prefix": "cwr",
-        "body": [
-            "componentWillReceiveProps(nextProps) {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "DEPRECATED!!!. Invoked when a component is receiving new props. This method is not called for the initial render."
-    },
-    "shouldComponentUpdate": {
-        "prefix": "scu",
-        "body": [
-            "shouldComponentUpdate(nextProps, nextState) {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Invoked before rendering when new props or state are being received. "
-    },
-    "componentWillUpdate": {
-        "prefix": "cwup",
-        "body": [
-            "componentWillUpdate(nextProps, nextState) {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "DEPRECATED!!!. Invoked immediately before rendering when new props or state are being received."
-    },
-    "componentDidUpdate": {
-        "prefix": "cdup",
-        "body": [
-            "componentDidUpdate(prevProps, prevState) {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Invoked immediately after the component's updates are flushed to the DOM."
-    },
-    "componentWillUnmount": {
-        "prefix": "cwun",
-        "body": [
-            "componentWillUnmount() {",
-            "\t$0",
-            "}",
-            ""
-        ],
-        "description": "Invoked immediately before a component is unmounted from the DOM."
-    },
-    "mappingToProps": {
-        "prefix": "reduxmap",
-        "body": [
-            "const mapStateToProps = (state) => ({",
-            "\t${1}",
-            "})",
-            "",
-            "const mapDispatchToProps = {",
-            "\t",
-            "}",
-            ""
-        ]
-    },
-    "classConstructor": {
-        "prefix": "rconst",
-        "body": [
-            "constructor(props) {",
-            "\tsuper(props)",
-            "",
-            "\tthis.state = {",
-            "\t\t $0",
-            "\t}",
-            "}",
-            ""
-        ],
-        "description": "Adds a default constructor for it('', () => {})the class that contains props as arguments"
-    },
-    "styleCenter": {
-        "prefix": "alj",
-        "body": [
-            "justifyContent: 'center',",
-            "alignItems: 'center',"
-        ]
-    },
-    "initSaga": {
-        "prefix": "rnsg",
-        "body": [
-            "import {$1} from 'redux-saga/effects';",
-            "",
-            "export function* ${2:functionName}($3){",
-            "$4",
-            "}"
-        ]
-    }
+  "import": {
+    "prefix": "imp",
+    "body": "import ${2:moduleName} from '${1:module}'$0"
+  },
+  "importNoModuleName": {
+    "prefix": "imn",
+    "body": "import '${1:module}'$0"
+  },
+  "importDestructing": {
+    "prefix": "imd",
+    "body": "import { $2 } from '${1:module}'$0"
+  },
+  "importEverything": {
+    "prefix": "ime",
+    "body": "import * as ${2:alias} from '${1:module}'$0"
+  },
+  "importAs": {
+    "prefix": "ima",
+    "body": "import { ${2:originalName} as ${3:alias} } from '${1:module}'$0"
+  },
+  "exportDefault": {
+    "prefix": "exp",
+    "body": "export default $1$0"
+  },
+  "exportDestructing": {
+    "prefix": "exd",
+    "body": "export { $2 } from '${1:module}'$0"
+  },
+  "exportAs": {
+    "prefix": "exa",
+    "body": "export { ${2:originalName} as ${3:alias} } from '${1:module}'$0"
+  },
+  "exportNamedFunction": {
+    "prefix": "enf",
+    "body": [
+      "export const ${1:functionName} = (${2:params}) => {",
+      "\t$0",
+      "}",
+      ""
+    ],
+    "description": "Export named function in ES7 syntax"
+  },
+  "exportDefaultFunction": {
+    "prefix": "edf",
+    "body": ["export default (${1:params}) => {", "\t$0", "}", ""],
+    "description": "Export default function in ES7 syntax"
+  },
+  "forEach": {
+    "prefix": "fre",
+    "body": ["${1:array}.forEach(${2:currentItem} => {", "\t${0}", "})", ""],
+    "description": "Creates a forEach statement in ES7 syntax"
+  },
+  "forOf": {
+    "prefix": "fof",
+    "body": ["for(let ${1:item} of ${2:object}) {", "\t${0}", "}", ""],
+    "description": "Iterating over property names of iterable objects"
+  },
+  "forIn": {
+    "prefix": "fin",
+    "body": ["for(let ${1:item} in ${2:object}) {", "\t${0}", "}", ""],
+    "description": "Iterating over property values of iterable objects"
+  },
+  "anonymousFunction": {
+    "prefix": "anfn",
+    "body": ["(${1:params}) => {", "\t${2}", "}", ""],
+    "description": "Creates an anonymous function in ES7 syntax"
+  },
+  "namedFunction": {
+    "prefix": "nfn",
+    "body": ["const ${1:name} = (${2:params}) => {", "\t${3}", "}", ""],
+    "description": "Creates a named function in ES7 syntax"
+  },
+  "destructingObject": {
+    "prefix": "dob",
+    "body": "const {${1:propertyName}} = ${2:objectToDestruct}",
+    "description": "Creates and assigns a local variable using object destructing"
+  },
+  "destructingArray": {
+    "prefix": "dar",
+    "body": "const [${1:propertyName}] = ${2:arrayToDestruct}",
+    "description": "Creates and assigns a local variable using array destructing"
+  },
+  "setInterval": {
+    "prefix": "sti",
+    "body": ["setInterval(() => {", "\t${2}", "}, ${0:intervalInms})", ""],
+    "description": "Executes the given function at specified intervals in ES7 syntax"
+  },
+  "setTimeOut": {
+    "prefix": "sto",
+    "body": ["setTimeout(() => {", "\t${2}", "}, ${1:delayInms})", ""],
+    "description": "Executes the given function after the specified delay in ES7 syntax"
+  },
+  "consoleAssert": {
+    "prefix": "cas",
+    "body": "console.assert(${1:expression}, ${2:object})",
+    "description": "If the specified expression is false, the message is written to the console along with a stack trace"
+  },
+  "consoleClear": {
+    "prefix": "ccl",
+    "body": "console.clear()",
+    "description": "Clears the console"
+  },
+  "consoleCount": {
+    "prefix": "cco",
+    "body": "console.count(${1:label})",
+    "description": "Writes the the number of times that count() has been invoked at the same line and with the same label"
+  },
+  "consoleDir": {
+    "prefix": "cdi",
+    "body": "console.dir(${1:object})",
+    "description": "Prints a JavaScript representation of the specified object"
+  },
+  "consoleError": {
+    "prefix": "cer",
+    "body": "console.error(${1:object})",
+    "description": "Displays a message in the console and also includes a stack trace from where the method was called"
+  },
+  "consoleGroup": {
+    "prefix": "cgr",
+    "body": "console.group(\"${1:label}\")",
+    "description": "Groups and indents all following output by an additional level, until console.groupEnd() is called."
+  },
+  "consoleGroupEnd": {
+    "prefix": "cge",
+    "body": "console.groupEnd()",
+    "description": "Closes out the corresponding console.group()."
+  },
+  "consoleLog": {
+    "prefix": "clg",
+    "body": "console.log(${1:object})",
+    "description": "Displays a message in the console"
+  },
+  "consoleTrace": {
+    "prefix": "ctr",
+    "body": "console.trace(${1:object})",
+    "description": "Prints a stack trace from the point where the method was called"
+  },
+  "consoleLogObject": {
+    "prefix": "clo",
+    "body": "console.log('${1:object}', ${1:object})",
+    "description": "Logs property with name."
+  },
+  "consoleTime": {
+    "prefix": "ctm",
+    "body": "console.time('${1:object}')",
+    "description": "Console time wrapper"
+  },
+  "consoleTimeEnd": {
+    "prefix": "cte",
+    "body": "console.timeEnd('${1:object}')",
+    "description": "Console time end wrapper"
+  },
+  "consoleWarn": {
+    "prefix": "cwa",
+    "body": "console.warn(${1:object})",
+    "description": "Displays a message in the console but also displays a yellow warning icon along with the logged message"
+  },
+  "consoleInfo": {
+    "prefix": "cin",
+    "body": "console.info(${1:object})",
+    "description": "Displays a message in the console but also displays a blue information icon along with the logged message"
+  },
+  "import React": {
+    "prefix": "imr",
+    "body": ["import React from 'react'", ""]
+  },
+  "import React, { Component }": {
+    "prefix": "imrc",
+    "body": ["import React, { Component } from 'react'", ""]
+  },
+  "import React, { PureComponent }": {
+    "prefix": "imrpc",
+    "body": ["import React, { PureComponent } from 'react'", ""]
+  },
+  "import React, { memo }": {
+    "prefix": "imrm",
+    "body": ["import React, { memo } from 'react'", ""]
+  },
+  "Create style": {
+    "prefix": "rns",
+    "body": ["const styles = ${1:StyleSheet}.create({", "${2}", "})"]
+  },
+  "Export style": {
+    "prefix": "rnse",
+    "body": ["export const styles = ${1:StyleSheet}.create({", "${2}", "})"]
+  },
+  "React, Hook, memo": {
+    "prefix": "rnhm",
+    "body": [
+      "import React, { memo } from 'react'",
+      "import { View, Text } from 'react-native'",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Component = () => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
+    ]
+  },
+  "React, Hook, memo , style ": {
+    "prefix": "rnhms",
+    "body": [
+      "import React, { memo } from 'react'",
+      "import { View, Text, StyleSheet } from 'react-native'",
+      "",
+      "const styles = StyleSheet.create({",
+      "",
+      "});",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Component = () => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
+    ]
+  },
+  "React, Typescript, Hook, memo, interface  ": {
+    "prefix": "rthm",
+    "body": [
+      "import React, { memo } from 'react'",
+      "import { View, Text } from 'react-native'",
+      "",
+      "interface ${1:${TM_FILENAME_BASE}}Props {",
+      "",
+      "}",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Component = ({}:${1:${TM_FILENAME_BASE}}Props) => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
+    ]
+  },
+  "React, Typescript, Hook, memo, type, navigation  ": {
+    "prefix": "rtnhm",
+    "body": [
+      "import React, { memo } from 'react'",
+      "import { View, Text } from 'react-native'",
+      "import {  StackScreenProps } from '@react-navigation/stack'",
+      "",
+      "type ${1:${TM_FILENAME_BASE}}Props = StackScreenProps<${3},${4}>",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Component = ({ navigation, route }:${1:${TM_FILENAME_BASE}}Props) => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
+    ]
+  },
+  "React, Typescript, Hook, memo, type, functional ": {
+    "prefix": "fnm",
+    "body": [
+      "const ${1:${TM_FILENAME_BASE}} = memo((${1:${TM_FILENAME_BASE}}Props) => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "},${2:isEqual})"
+    ]
+  },
+  "React,Typescript, Hook, memo, interface, style  ": {
+    "prefix": "rthms",
+    "body": [
+      "import React, { memo } from 'react'",
+      "import { View, Text, StyleSheet } from 'react-native'",
+      "",
+      "const styles = StyleSheet.create({",
+      "",
+      "});",
+      "",
+      "interface ${1:${TM_FILENAME_BASE}}Props {",
+      "",
+      "}",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Component = ({}:${1:${TM_FILENAME_BASE}}Props) => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text></Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = memo(${1:${TM_FILENAME_BASE}}Component,${2:isEqual})"
+    ]
+  },
+  "Redux Constant": {
+    "prefix": "rxconst",
+    "body": ["export const ${1:CONSTANT_NAME} = '${1:CONSTANT_NAME}'"]
+  },
+  "Redux Action": {
+    "prefix": "rxaction",
+    "body": [
+      "export const ${1:actionName} = (payload) => ({",
+      " type: ${2:type},",
+      " payload",
+      "})"
+    ]
+  },
+  "Redux Reducer": {
+    "prefix": "rxreducer",
+    "body": [
+      "const initialState = {",
+      "",
+      "}",
+      "",
+      "export default (state = initialState, { type, payload }) => {",
+      "\tswitch (type) {",
+      "",
+      "\tcase ${1:typeName}:",
+      "\t\treturn { ...state, ...payload }",
+      "",
+      "\tdefault:",
+      "\t\treturn state",
+      "\t}",
+      "}"
+    ]
+  },
+  "Redux Reducer Immer": {
+    "prefix": "imreducer",
+    "body": [
+      "import { produce } from 'immer'",
+      "import * as Action from '${1}';",
+      "",
+      "const initialState = {",
+      "",
+      "};",
+      "export default",
+      "\tproduce((draftState, { type, payload }) => {",
+      "\t\tswitch (type) {",
+      "\t\t\tdefault:",
+      "\t\t\t\tbreak;",
+      "\t\t}",
+      "\t}, initialState)"
+    ]
+  },
+  "Typescript Redux Reducer": {
+    "prefix": "rxtreducer",
+    "body": [
+      "import * as Action from '${1}';",
+      "",
+      "interface ${2:${TM_FILENAME_BASE}}State {",
+      "",
+      "}",
+      "",
+      "const initialState: ${2:${TM_FILENAME_BASE}}State = {",
+      "",
+      "}",
+      "",
+      "interface ActionProps {",
+      "\ttype: keyof typeof Action;",
+      "\tpayload: any;",
+      "}",
+      "export default (state = initialState, { type, payload }: ActionProps): ${2:${TM_FILENAME_BASE}}State => {",
+      "\tswitch (type) {",
+      "",
+      "\t\tcase ${3:typeName}:",
+      "\t\t\treturn { ...state, ...payload }",
+      "",
+      "\t\tdefault:",
+      "\t\t\treturn state",
+      "\t}",
+      "}"
+    ]
+  },
+  "Typescript Redux Reducer Immer": {
+    "prefix": "timreducer",
+    "body": [
+      "import { produce } from 'immer'",
+      "import * as Action from '${1}';",
+      "",
+      "export interface ${2:${TM_FILENAME_BASE}}State {",
+      "",
+      "}",
+      "const initialState: ${2:${TM_FILENAME_BASE}}State = {",
+      "",
+      "};",
+      "interface ActionProps {",
+      "\ttype: keyof typeof Action;",
+      "\tpayload: any;",
+      "}",
+      "export default",
+      "\tproduce((draftState: ${2:${TM_FILENAME_BASE}}State, { type, payload }: ActionProps) => {",
+      "\t\tswitch (type) {",
+      "\t\t\tdefault:",
+      "\t\t\t\tbreak;",
+      "\t\t}",
+      "\t}, initialState)"
+    ]
+  },
+  "Typescript interface": {
+    "prefix": "rni",
+    "body": ["interface ${1:${TM_FILENAME_BASE}} {", "", "}"]
+  },
+  "export Typescript interface": {
+    "prefix": "exi",
+    "body": ["export interface ${1:${TM_FILENAME_BASE}} {", "", "}"]
+  },
+  "export Typescript type": {
+    "prefix": "ext",
+    "body": ["export type ${1:${TM_FILENAME_BASE}} = $2"]
+  },
+  "redux useSelector": {
+    "prefix": "useSelector",
+    "body": ["const {${2:state}} = useSelector(x => x.${1:state});"]
+  },
+  "Typescript Redux useSelector": {
+    "prefix": "tsuseSelector",
+    "body": ["const {${3:state}} = useSelector<${1:any}>(x => x.${2:state});"]
+  },
+  "redux useDispatch": {
+    "prefix": "useDispatch",
+    "body": ["const dispatch = useDispatch();"]
+  },
+  "useImperativeHandle": {
+    "prefix": "useImperativeHandle",
+    "body": [
+      "useImperativeHandle(",
+      "\tref,",
+      "\t() => {",
+      "\t\t${2:handler}",
+      "\t},",
+      "\t[${1:deps}],",
+      ")"
+    ]
+  },
+  "React hook state": {
+    "prefix": "useState",
+    "body": [
+      "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialState})"
+    ]
+  },
+  "Typescript React hook state": {
+    "prefix": "tuseState",
+    "body": [
+      "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState<${2:any}>(${3:initialState})"
+    ]
+  },
+  "useEffect": {
+    "prefix": "useEffect",
+    "body": [
+      "useEffect(() => {",
+      "\t${2:effect}",
+      "\treturn () => {",
+      "\t\t${3:cleanup}",
+      "\t}",
+      "}, [${1:deps}])"
+    ]
+  },
+  "useContext": {
+    "prefix": "useContext",
+    "body": ["const ${1:context} = useContext(${2:contextValue})"]
+  },
+  "useReducer": {
+    "prefix": "useReducer",
+    "body": [
+      "const [state, dispatch] = useReducer(${1:reducer}, ${2:initialState}, ${3:init})"
+    ]
+  },
+  "useCallback": {
+    "prefix": "useCallback",
+    "body": [
+      "const ${1:callback} = useCallback((${2:params}) => {",
+      "\t$4",
+      "}, [${3:deps}]);"
+    ]
+  },
+  "useMemo": {
+    "prefix": "useMemo",
+    "body": ["const ${1:memo} = useMemo(() => ${2:function}, [${3:deps}])"]
+  },
+  "tuseMemo": {
+    "prefix": "useMemo",
+    "body": [
+      "const ${2:memo} = useMemo<${1:any}>(() => ${3:function}, [${4:deps}])"
+    ]
+  },
+  "useRef": {
+    "prefix": "useRef",
+    "body": ["const ${1:ref} = useRef(${2:initialValue})"]
+  },
+  "Typescript useRef": {
+    "prefix": "tuseRef",
+    "body": ["const ${2:ref} = useRef<${1:any}>(${3:initialValue})"]
+  },
+  "useLayoutEffect": {
+    "prefix": "useLayoutEffect",
+    "body": [
+      "useLayoutEffect(() => {",
+      "\t${2:effect}",
+      "\treturn () => {",
+      "\t\t${2:cleanup}",
+      "\t};",
+      "}, [${1:input}])"
+    ]
+  },
+  "useDebugValue": {
+    "prefix": "useDebugValue",
+    "body": ["useDebugValue(${1:value})"]
+  },
+  "Redux saga function": {
+    "prefix": "rxsaga",
+    "body": ["export function* ${1:functionName}() {", "${2}", "}"]
+  },
+  "describeBlock": {
+    "prefix": "desc",
+    "body": ["describe('$1', () => {", "\t$0", "})", ""],
+    "description": "Testing `describe` block"
+  },
+  "testBlock": {
+    "prefix": "test",
+    "body": ["test('should $1', () => {", "\t$0", "})", ""],
+    "description": "Testing `test` block"
+  },
+  "testAsyncBlock": {
+    "prefix": "testa",
+    "body": ["test('should $1', async () => {", "\t$0", "})", ""],
+    "description": "Testing `asynchronous test` block"
+  },
+  "itBlock": {
+    "prefix": "tit",
+    "body": ["it('should $1', () => {", "\t$0", "})", ""],
+    "description": "Testing `it` block"
+  },
+  "itAsyncBlock": {
+    "prefix": "tita",
+    "body": ["it('should $1', async () => {", "\t$0", "})", ""],
+    "description": "Testing asynchronous `it` block"
+  },
+  "setupReactNativeTest": {
+    "prefix": "sntest",
+    "body": [
+      "import 'react-native'",
+      "import React from 'react'",
+      "import renderer from 'react-test-renderer'",
+      "",
+      "import ${1:${TM_FILENAME_BASE}} from '../${1:${TM_FILENAME_BASE}}'",
+      "",
+      "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
+      "\tconst defaultProps = {}",
+      "\tconst wrapper = renderer.create(<${1:${TM_FILENAME_BASE}} {...defaultProps} />)",
+      "",
+      "\ttest('render', () => {",
+      "\t\texpect(wrapper).toMatchSnapshot()",
+      "\t})",
+      "})",
+      ""
+    ]
+  },
+  "setupReactComponentTestWithRedux": {
+    "prefix": "srtest",
+    "body": [
+      "import React from 'react'",
+      "import renderer from 'react-test-renderer'",
+      "import { Provider } from 'react-redux'",
+      "",
+      "import store from 'src/store'",
+      "import { ${1:${TM_FILENAME_BASE}} } from '../${1:${TM_FILENAME_BASE}}'",
+      "",
+      "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
+      "\tconst defaultProps = {}",
+      "\tconst wrapper = renderer.create(",
+      "\t\t<Provider store={store}>",
+      "\t\t <${1:${TM_FILENAME_BASE}} {...defaultProps} />",
+      "\t\t</Provider>,",
+      "\t)",
+      "",
+      "\ttest('render', () => {",
+      "\t\texpect(wrapper).toMatchSnapshot()",
+      "\t})",
+      "})",
+      ""
+    ],
+    "description": "Create test component"
+  },
+  "setupReactNativeTestWithRedux": {
+    "prefix": "snrtest",
+    "body": [
+      "import 'react-native'",
+      "import React from 'react'",
+      "import renderer from 'react-test-renderer'",
+      "import { Provider } from 'react-redux'",
+      "",
+      "import store from 'src/store'",
+      "import ${1:${TM_FILENAME_BASE}} from '../${1:${TM_FILENAME_BASE}}'",
+      "",
+      "describe('<${1:${TM_FILENAME_BASE}} />', () => {",
+      "\tconst defaultProps = {}",
+      "\tconst wrapper = renderer.create(",
+      "\t\t<Provider store={store}>",
+      "\t\t\t<${1:${TM_FILENAME_BASE}} {...defaultProps} />",
+      "\t\t</Provider>,",
+      "\t)",
+      "",
+      "\ttest('render', () => {",
+      "\t\texpect(wrapper).toMatchSnapshot()",
+      "\t})",
+      "})",
+      ""
+    ]
+  },
+  "reactNativeComponent": {
+    "prefix": "rnc",
+    "body": [
+      "import React, { Component } from 'react'",
+      "import { Text, View } from 'react-native'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ]
+  },
+  "reactNativeComponentWithStyles": {
+    "prefix": "rncs",
+    "body": [
+      "import React, { Component } from 'react'",
+      "import { Text, StyleSheet, View } from 'react-native'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "const styles = StyleSheet.create({})",
+      ""
+    ]
+  },
+  "reactNativeComponentExport": {
+    "prefix": "rnce",
+    "body": [
+      "import React, { Component } from 'react'",
+      "import { Text, View } from 'react-native'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      ""
+    ]
+  },
+  "reactNativePureComponent": {
+    "prefix": "rnpc",
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "import { Text, View } from 'react-native'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ]
+  },
+  "reactNativePureComponentExport": {
+    "prefix": "rnpce",
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "import { Text, View } from 'react-native'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      ""
+    ]
+  },
+  "reactNativeClassComponentRedux": {
+    "prefix": "rncredux",
+    "body": [
+      "import React, { Component } from 'react'",
+      "import { View, Text } from 'react-native'",
+      "import PropTypes from 'prop-types'",
+      "import { connect } from 'react-redux'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
+      "\tstatic propTypes = {",
+      "\t\t${2:prop}: ${3:PropTypes}",
+      "\t}",
+      "",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<View>",
+      "\t\t\t\t<Text> ${2:textInComponent} </Text>",
+      "\t\t\t</View>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "const mapStateToProps = (state) => ({",
+      "\t",
+      "})",
+      "",
+      "const mapDispatchToProps = {",
+      "\t",
+      "}",
+      "",
+      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})",
+      ""
+    ],
+    "description": "Creates a React Native component class with PropTypes with connected redux and ES7 module system"
+  },
+  "reactNativeFunctionalExportComponent": {
+    "prefix": "rnfe",
+    "body": [
+      "import React from 'react'",
+      "import { View, Text } from 'react-native'",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text>$0</Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      ""
+    ]
+  },
+  "reactNativeFunctionalExportComponentWithStyles": {
+    "prefix": "rnfes",
+    "body": [
+      "import React from 'react'",
+      "import { StyleSheet, Text, View } from 'react-native'",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text>$0</Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      "",
+      "const styles = StyleSheet.create({})",
+      ""
+    ]
+  },
+  "reactNativeFunctionalComponent": {
+    "prefix": "rnf",
+    "body": [
+      "import React from 'react'",
+      "import { View, Text } from 'react-native'",
+      "",
+      "export default function ${1:${TM_FILENAME_BASE}}() {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text>$0</Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      ""
+    ]
+  },
+  "reactNativeFunctionalComponentWithStyles": {
+    "prefix": "rnfs",
+    "body": [
+      "import React from 'react'",
+      "import { StyleSheet, Text, View } from 'react-native'",
+      "",
+      "export default function ${1:${TM_FILENAME_BASE}}() {",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text>$0</Text>",
+      "\t\t</View>",
+      "\t)",
+      "}",
+      "",
+      "const styles = StyleSheet.create({})",
+      ""
+    ]
+  },
+  "reactNativeImport": {
+    "prefix": "imrn",
+    "body": "import { ${1:moduleName} } from 'react-native'"
+  },
+  "componentSetStateObject": {
+    "prefix": "sst",
+    "body": "this.setState({$0})",
+    "description": "Performs a shallow merge of nextState into current state"
+  },
+  "componentSetStateFunc": {
+    "prefix": "ssf",
+    "body": ["this.setState((state, props) => { return { $0 }})", ""],
+    "description": "Performs a shallow merge of nextState into current state"
+  },
+  "componentProps": {
+    "prefix": "props",
+    "body": "this.props.$0",
+    "description": "Access component's props"
+  },
+  "componentState": {
+    "prefix": "state",
+    "body": "this.state.$0"
+  },
+  "componentWillMount": {
+    "prefix": "cwm",
+    "body": ["componentWillMount() {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked once, both on the client and server, immediately before the initial rendering occurs"
+  },
+  "componentDidMount": {
+    "prefix": "cdm",
+    "body": ["componentDidMount() {", "\t$0", "}", ""],
+    "description": "Invoked once, only on the client (not on the server), immediately after the initial rendering occurs."
+  },
+  "componentWillReceiveProps": {
+    "prefix": "cwr",
+    "body": ["componentWillReceiveProps(nextProps) {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked when a component is receiving new props. This method is not called for the initial render."
+  },
+  "shouldComponentUpdate": {
+    "prefix": "scu",
+    "body": ["shouldComponentUpdate(nextProps, nextState) {", "\t$0", "}", ""],
+    "description": "Invoked before rendering when new props or state are being received. "
+  },
+  "componentWillUpdate": {
+    "prefix": "cwup",
+    "body": ["componentWillUpdate(nextProps, nextState) {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked immediately before rendering when new props or state are being received."
+  },
+  "componentDidUpdate": {
+    "prefix": "cdup",
+    "body": ["componentDidUpdate(prevProps, prevState) {", "\t$0", "}", ""],
+    "description": "Invoked immediately after the component's updates are flushed to the DOM."
+  },
+  "componentWillUnmount": {
+    "prefix": "cwun",
+    "body": ["componentWillUnmount() {", "\t$0", "}", ""],
+    "description": "Invoked immediately before a component is unmounted from the DOM."
+  },
+  "mappingToProps": {
+    "prefix": "reduxmap",
+    "body": [
+      "const mapStateToProps = (state) => ({",
+      "\t${1}",
+      "})",
+      "",
+      "const mapDispatchToProps = {",
+      "\t",
+      "}",
+      ""
+    ]
+  },
+  "classConstructor": {
+    "prefix": "rconst",
+    "body": [
+      "constructor(props) {",
+      "\tsuper(props)",
+      "",
+      "\tthis.state = {",
+      "\t\t $0",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Adds a default constructor for it('', () => {})the class that contains props as arguments"
+  },
+  "styleCenter": {
+    "prefix": "alj",
+    "body": ["justifyContent: 'center',", "alignItems: 'center',"]
+  },
+  "initSaga": {
+    "prefix": "rnsg",
+    "body": [
+      "import {$1} from 'redux-saga/effects';",
+      "",
+      "export function* ${2:functionName}($3){",
+      "$4",
+      "}"
+    ]
+  }
 }
