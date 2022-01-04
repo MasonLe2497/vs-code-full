@@ -267,7 +267,7 @@
   "React, Typescript, Hook, memo, type, functional ": {
     "prefix": "fnm",
     "body": [
-      "const ${1:${TM_FILENAME_BASE}} = memo((${1:${TM_FILENAME_BASE}}Props) => {",
+      "const ${1:${TM_FILENAME_BASE}} = memo((${1:${TM_FILENAME_BASE}}) => {",
       "\treturn (",
       "\t\t<View>",
       "\t\t\t<Text></Text>",
