@@ -333,6 +333,36 @@
       "}"
     ]
   },
+  "Redux toolkit action": {
+    "prefix": "rxtkaction",
+    "body": [
+      "const ${1:actionName} = createAction(",
+      "\t${2:type},",
+      "\t(${3:params}) => ({",
+      "\tpayload: {",
+      "\t\t${4:res}",
+      "\t},",
+      " }),",
+      ");"
+    ]
+  },
+  "Redux toolkit slice": {
+    "prefix": "rxtkslice",
+    "body": [
+      "const initialState: ${3:${TM_FILENAME_BASE}}State = {",
+      "",
+      "};",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}Slice = createSlice({",
+      "\tname: ${2:sliceName},",
+      "\tinitialState,",
+      "\treducers: {",
+      "\t\t${4}",
+      "\t},",
+      "});",
+      "export const { reducer: ${1:${TM_FILENAME_BASE}}Reducer, actions: ${1:${TM_FILENAME_BASE}}Actions } = ${1:${TM_FILENAME_BASE}}Slice;"
+    ]
+  },
   "Redux Reducer Immer": {
     "prefix": "imreducer",
     "body": [
@@ -791,7 +821,7 @@
       "import React from 'react'",
       "import { View, Text } from 'react-native'",
       "",
-      "export default function ${1:${TM_FILENAME_BASE}}() {",
+      "export const ${1:${TM_FILENAME_BASE}} = () => {",
       "\treturn (",
       "\t\t<View>",
       "\t\t\t<Text>$0</Text>",
